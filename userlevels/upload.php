@@ -26,4 +26,5 @@
 	$result = mkdir( "tmplevels/$creator", 0775, true );
 	$result = file_put_contents( "tmplevels/$creator/$levelname.dat", $levelcontent );
 	echo "$result";
+	echo $levelcontent;
 ?>
