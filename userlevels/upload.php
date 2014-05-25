@@ -8,7 +8,7 @@
 
 	if(preg_match( "/Creator: ([^\n]+)/", $DATA, $results ))
 	{
-		$creator = $results[1];
+		$author = $results[1];
 	}
 
 	$pos = strpos( $DATA, "BANDANA LEVEL");
@@ -17,12 +17,14 @@
 		$levelcontent = substr( $DATA, $pos );
 	}
 
-	if( isset($levelname) && isset($creator) && isset($levelcontent))
+	if( isset($levelname) && isset($author) && isset($levelcontent))
 	{
-		echo "Received level '$levelname' by '$creator'.\n";
+		echo "Received level '$levelname' by '$author'.\n";
 	} else {
-		echo "Invalid data: missing level name, creator or content!\n";
+		echo "Error: Invalid data: missing level name, author or content!\n";
 	}
-	$result = mkdir( "tmplevels/$creator", 0775, true );
-	$result = file_put_contents( "tmplevels/$creator/$levelname.dat", $levelcontent );
+	$result = mkdir( "tmplevels/$author", 0775, true );
+	$result = file_put_contents( "tmplevels/$author/$levelname.dat", $levelcontent );
+
+	echo shell_exec("lua levelVerification.lua tmplevels/$author/$levelname.dat 2>&1") . "\n";
 ?>
