@@ -26,5 +26,19 @@
 	$result = mkdir( "tmplevels/$author", 0775, true );
 	$result = file_put_contents( "tmplevels/$author/$levelname.dat", $levelcontent );
 
-	echo shell_exec("lua levelVerification.lua tmplevels/$author/$levelname.dat 2>&1") . "\n";
+	$output = shell_exec( "lua levelVerification.lua tmplevels/$author/$levelname.dat 2>&1" );
+
+	// check if there were errors (ugly, but command line lua does not seem to give back useful error codes...?):
+	if( stripos($output, "Error:") )
+	{
+		unlink( "tmplevels/$author/$levelname.dat" );
+		echo( substr($output, stripos($output, "Error:")));
+		echo "Error in level file.\n";
+		echo "Removed temporary file.\n";
+	} else {
+		$result = mkdir( "unauthorized/$author", 0775, true );
+		//echo "Mkdir: $result\n";
+		$result = rename( "tmplevels/$author/$levelname.dat", "unauthorized/$author/$levelname.dat" );
+		echo "Saved file, marked as 'unauthorized'.\n";
+	}
 ?>
