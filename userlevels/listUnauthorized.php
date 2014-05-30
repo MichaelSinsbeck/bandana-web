@@ -11,7 +11,7 @@ foreach ($userlist as $userdir)
 		$filelist = scandir ( "unauthorized/$userdir" );
 		foreach ($filelist as $file)
 		{
-			if (preg_match ( ".dat" , $file) )
+			if (preg_match ( "/\.dat$/" , $file) )
 			{
 				echo "\t$file\n";
 			}
