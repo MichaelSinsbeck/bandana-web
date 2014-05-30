@@ -5,11 +5,14 @@ $userlist = scandir ( "unauthorized" );
 
 foreach ($userlist as $userdir)
 {
-	echo "$userdir\n";
-	$filelist = scandir ( "unauthorized/$userdir" );
-	foreach ($filelist as $file)
+	if ($userdir != "." && $userdir != "..")
 	{
-		echo "\t$file\n";
+		echo "$userdir\n";
+		$filelist = scandir ( "unauthorized/$userdir" );
+		foreach ($filelist as $file)
+		{
+			echo "\t$file\n";
+		}
 	}
 }
 ?>
