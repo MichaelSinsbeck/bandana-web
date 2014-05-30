@@ -7,11 +7,14 @@ foreach ($userlist as $userdir)
 {
 	if ($userdir != "." && $userdir != "..")
 	{
-		echo "$userdir\n";
+		echo "User: $userdir\n";
 		$filelist = scandir ( "unauthorized/$userdir" );
 		foreach ($filelist as $file)
 		{
-			echo "\t$file\n";
+			if (preg_match ( ".dat" , $file) )
+			{
+				echo "\t$file\n";
+			}
 		}
 	}
 }
