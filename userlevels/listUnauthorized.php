@@ -3,19 +3,28 @@
 // get list of all folders:
 $userlist = scandir ( "unauthorized" );
 
+$starID = 0;
+$endID = 100000;
+$currentID = 0;
+
 foreach ($userlist as $userdir)
 {
 	if ($userdir != "." && $userdir != "..")
 	{
-		echo "User: $userdir\n";
 		$filelist = scandir ( "unauthorized/$userdir" );
 		foreach ($filelist as $file)
 		{
 			if (preg_match ( "/\.dat$/" , $file) )
 			{
-				echo "\t$file\n";
+				if ($currentID >= $startID )
+				{
+					echo "$userdir\t$file\n";
+				}
+				$currentID = $currentID + 1;
+				if ($currentID > $endID) break;
 			}
 		}
 	}
+	if ($currentID > $endID) break;
 }
 ?>
