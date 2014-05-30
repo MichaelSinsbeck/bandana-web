@@ -6,7 +6,7 @@ $userlist = scandir ( "unauthorized" );
 foreach ($userlist as $userdir)
 {
 	echo "$userdir\n";
-	$filelist = scandir ( string "unauthorized/$userdir" );
+	$filelist = scandir ( "unauthorized/$userdir" );
 	foreach ($filelist as $file)
 	{
 		echo "\t$file\n";
