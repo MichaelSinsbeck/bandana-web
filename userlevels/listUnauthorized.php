@@ -1,10 +1,15 @@
 <?php
 
 // get list of all folders:
-$list = scandir ( string "unauthorized" );
+$userlist = scandir ( "unauthorized" );
 
-foreach ($list as $dir)
+foreach ($userlist as $userdir)
 {
-	echo "$dir\n";
+	echo "$userdir\n";
+	$filelist = scandir ( string "unauthorized/$userdir" );
+	foreach ($filelist as $file)
+	{
+		echo "\t$file\n";
+	}
 }
 ?>
