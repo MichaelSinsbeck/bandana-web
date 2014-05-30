@@ -1,7 +1,7 @@
 <?php
 
 // get list of all folders:
-$userlist = scandir ( "unauthorized" );
+$userlist = scandir ( "authorized" );
 
 $startID = 0;
 $endID = 100000;
@@ -11,7 +11,7 @@ foreach ($userlist as $userdir)
 {
 	if ($userdir != "." && $userdir != "..")
 	{
-		$filelist = scandir ( "unauthorized/$userdir" );
+		$filelist = scandir ( "authorized/$userdir" );
 		foreach ($filelist as $file)
 		{
 			if (preg_match ( "/\.dat$/" , $file) )
