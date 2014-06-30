@@ -40,5 +40,6 @@
 		//echo "Mkdir: $result\n";
 		$result = rename( "tmplevels/$author/$levelname.dat", "unauthorized/$author/$levelname.dat" );
 		echo "Saved file, marked as 'unauthorized'.\n";
+		echo "Password:123456\n";
 	}
 ?>
