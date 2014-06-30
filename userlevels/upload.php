@@ -17,12 +17,21 @@
 		$levelcontent = substr( $DATA, $pos );
 	}
 
-	if( isset($levelname) && isset($author) && isset($levelcontent))
+	if( isset($levelname) && isset($author) && isset($levelcontent) )
 	{
 		echo "Received level '$levelname' by '$author'.\n";
 	} else {
 		echo "Error: Invalid data: missing level name, author or content!\n";
+		return;
 	}
+
+	// check if a file by this user already exists:
+	if( file_exists( "unauthorized/$author/$levelname.dat" ) || file_exists("authorized/$author/$levelname.dat" ) )
+	{
+		echo "Error: Level already exists!\n";
+		return;
+	}
+
 	$result = mkdir( "tmplevels/$author", 0775, true );
 	$result = file_put_contents( "tmplevels/$author/$levelname.dat", $levelcontent );
 
@@ -31,7 +40,8 @@
 	// check if there were errors (ugly, but command line lua does not seem to give back useful error codes...?):
 	if( stripos($output, "Error:") )
 	{
-		unlink( "tmplevels/$author/$levelname.dat" );
+		unlink( "tmplevels/$author/$levelname.dat" );	// there was an error, so remove the file.
+
 		echo( substr($output, stripos($output, "Error:")));
 		echo "Error in level file.\n";
 		echo "Removed temporary file.\n";
