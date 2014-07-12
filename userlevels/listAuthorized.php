@@ -18,7 +18,9 @@ foreach ($userlist as $userdir)
 			{
 				if ($currentID >= $startID )
 				{
-					echo "$userdir\t$file\n";
+					$metadata = file_get_contents("metadata/$userdir/$file");
+					echo $metadata;
+					//echo "$userdir\t$file\n";
 				}
 				$currentID = $currentID + 1;
 				if ($currentID > $endID) break;
