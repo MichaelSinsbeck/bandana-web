@@ -13,7 +13,7 @@ echo "<br>";*/
 if( isset($_GET['submit']) )
 {
 	$pw = file_get_contents( "secret_password" );
-	$submittedPW = $_GET['pwd'];
+	$submittedPW = sha1($_GET['pwd']);
 	$pw = preg_replace('/[^A-Za-z0-9\- ]/', '', $pw); // Removes special chars.
 	$result = strcmp($pw, $submittedPW);
 
